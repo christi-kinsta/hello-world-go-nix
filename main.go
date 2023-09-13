@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"runtime"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/template/html/v2"
@@ -24,6 +25,10 @@ func main() {
 	app.Get("/", func(c *fiber.Ctx) error {
 		// Render index template
 		return c.Render("index", nil)
+	})
+
+	app.Get("/version", func(c *fiber.Ctx) error {
+		return c.SendString(runtime.Version())
 	})
 
 	app.Listen(":" + getEnv("PORT", "8080"))
